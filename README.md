@@ -5,10 +5,9 @@ OS: Windows
 
 Runs on Python 2.x
 
-# Modules required: 
+# Modules required
 1. pygame
 2. sys
 3. random
 4. math
 5. ctypes
-
