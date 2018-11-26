@@ -3,11 +3,8 @@ from math import sqrt
 from pygame.locals import *
 #for initialisation of necessary steps
 pygame.init()
-import ctypes #foreign function library, provides C compatible data types etc.
 
-user32 = ctypes.windll.user32
-screenSize =  user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
-size=(screenSize)
+size=(1024, 768)
 #setup the window display
 windowSurface = pygame.display.set_mode((size), 0, 32) #the tuple has pixels #display is a module within pygame
 pygame.display.set_caption('Find the key!') #the title of window
