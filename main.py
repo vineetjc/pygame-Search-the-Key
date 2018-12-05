@@ -20,15 +20,11 @@ ORANGE = (255,140,0)
 GREEN = (0,225,0)
 GOLD = (255,223,0)
 
-inst1 = "1. There exists a 5x5 grid, one of which holds the key"
-inst2 = "2. You have 5 tries to find the key"
-inst3a = "3. As you go closer to the key, the temperature increases"
-inst3b = "   and as you go away from the key, it decreases"
-inst4 = "4. If you find the key in 5 turns, you win, else you lose"
-
-instructionSet = []
-
-instructionSet.extend([inst1,inst2,inst3a,inst3b,inst4])
+instructionSet = ["1. There exists a 5x5 grid, one of which holds the key",
+                  "2. You have 6 tries to find the key",
+                  "3. As you go closer to the key, the temperature increases",
+                  "   and as you go away from the key, it decreases",
+                  "4. If you find the key in 6 turns, you win, else you lose"]
 
 #Start Button
 startRect = pygame.Rect((392,509,240,50))
@@ -43,7 +39,7 @@ def text_objects(text, font):
   return textSurface, textSurface.get_rect()
 
 #Find key in 6 turns
-def SEARCH():
+def search_key():
 
     #Co-ordinates for tracking mouse movement
     x = y = 0
@@ -58,6 +54,10 @@ def SEARCH():
     key_idx=random.randint(1,25) #randomize box with key
     turncount=0 #to check turn count
     haswon=False #to check if successfully selected the key
+    buttonWidth=240
+    buttonHeight=50
+    buttonLeft=width/2-(buttonWidth/2)
+    buttonRight=width/2+(buttonWidth/2)
 
     done=False #loop variable
 
@@ -83,7 +83,6 @@ def SEARCH():
 
         if start == False and howto == False:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                xpress, ypress = event.pos
                 if howtoRect.collidepoint(event.pos):
                     howto = True
 
@@ -105,16 +104,19 @@ def SEARCH():
             
             windowSurface.blit(pygame.transform.scale(STARTGOLDKEY,(200,100)),(412,70))
 
-            if x>=392 and x<=632 and y>=509 and y<=559:
+            if x>=buttonLeft and x<=buttonRight and y>=height/2+125 and y<=height/2+125+buttonHeight:
                 pygame.draw.rect(windowSurface, GOLD, startRect)
 
             else:
                 pygame.draw.rect(windowSurface, GREEN, startRect)
 
-            if x>=392 and x<=632 and y>=584 and y<=634:
+
+            if x>=buttonLeft and x<=buttonRight and y>=height/2+200 and y<=height/2+200+buttonHeight:
                 pygame.draw.rect(windowSurface, GOLD, howtoRect)
 
             else:
+                print x,y
+                print buttonLeft,buttonRight,height/2+200,height/2+200+buttonHeight
                 pygame.draw.rect(windowSurface, GREEN, howtoRect)
 
             windowSurface.blit(textSurf1, textRect1)
@@ -150,7 +152,7 @@ def SEARCH():
             textSurf5, textRect5 = text_objects("BACK TO MENU", backtext)
             textRect5.center = ( (width/2), (height/2) + 225)
 
-            if x>=392 and x<=632 and y>=584 and y<=634:
+            if x>=buttonLeft and x<=buttonRight and y>=height/2+200 and y<=height/2+200+buttonHeight:
                 pygame.draw.rect(windowSurface, GOLD, backRect)
 
             else:
@@ -175,119 +177,117 @@ def SEARCH():
                 pygame.quit()
                 sys.exit()
 
-            if start == True:
-                if event.type==MOUSEBUTTONDOWN and event.button==1:
-                    pos=event.pos
-                    for rec in rects:
-                        #print(rec," ",pos)
-                        if rec.collidepoint(pos):
-                            distance=sqrt((rec.center[0]-rects[key_idx-1].center[0])**2 + (rec.center[1]-rects[key_idx-1].center[1])**2)
-                            # distance to hot/cold
-                            if distance<=100:
-                                therm=pygame.image.load('Images/thermo+12Red.jpg')
-                            if 100<distance<=142:
-                                therm=pygame.image.load('Images/thermo+11VermRed.jpg')
-                            if 142<distance<=200:
-                                therm=pygame.image.load('Images/thermo+10Vermillion.jpg')
-                            if 200<distance<=224:
-                                therm=pygame.image.load('Images/thermo+9DOrange.jpg')
-                            if 224<distance<=283:
-                                therm=pygame.image.load('Images/thermo+8Orange.jpg')
-                            if 283<distance<=300:
-                                therm=pygame.image.load('Images/thermo+7Orangyish.jpg')
-                            if 300<distance<=317:
-                                therm=pygame.image.load('Images/thermo+6Yellow.jpg')
-                            if 317<distance<=361:
-                                therm=pygame.image.load('Images/thermo+5Yellow.jpg')
-                            if 361<distance<=400:
-                                therm=pygame.image.load('Images/thermo+4Yellow.jpg')
-                            if 400<distance<=413:
-                                therm=pygame.image.load('Images/thermo+3Yellow.jpg')
-                            if 413<distance<=425:
-                                therm=pygame.image.load('Images/thermo+2Yellow.jpg')
-                            if 425<distance<=448:
-                                therm=pygame.image.load('Images/thermo+1PaleYellow.jpg')
-                            if 448<distance<=500:
-                                therm=pygame.image.load('Images/thermoPaleYellow.jpg')
-                            if 500<distance<=566:
-                                therm=pygame.image.load('Images/thermoLightBlu.jpg')
+            if event.type==MOUSEBUTTONDOWN and event.button==1:
+                pos=event.pos
+                for rec in rects:
+                    #print(rec," ",pos)
+                    if rec.collidepoint(pos):
+                        distance=sqrt((rec.center[0]-rects[key_idx-1].center[0])**2 + (rec.center[1]-rects[key_idx-1].center[1])**2)
+                        # distance to hot/cold
+                        if distance<=100:
+                            therm=pygame.image.load('Images/thermo+12Red.jpg')
+                        if 100<distance<=142:
+                            therm=pygame.image.load('Images/thermo+11VermRed.jpg')
+                        if 142<distance<=200:
+                            therm=pygame.image.load('Images/thermo+10Vermillion.jpg')
+                        if 200<distance<=224:
+                            therm=pygame.image.load('Images/thermo+9DOrange.jpg')
+                        if 224<distance<=283:
+                            therm=pygame.image.load('Images/thermo+8Orange.jpg')
+                        if 283<distance<=300:
+                            therm=pygame.image.load('Images/thermo+7Orangyish.jpg')
+                        if 300<distance<=317:
+                            therm=pygame.image.load('Images/thermo+6Yellow.jpg')
+                        if 317<distance<=361:
+                            therm=pygame.image.load('Images/thermo+5Yellow.jpg')
+                        if 361<distance<=400:
+                            therm=pygame.image.load('Images/thermo+4Yellow.jpg')
+                        if 400<distance<=413:
+                            therm=pygame.image.load('Images/thermo+3Yellow.jpg')
+                        if 413<distance<=425:
+                            therm=pygame.image.load('Images/thermo+2Yellow.jpg')
+                        if 425<distance<=448:
+                            therm=pygame.image.load('Images/thermo+1PaleYellow.jpg')
+                        if 448<distance<=500:
+                            therm=pygame.image.load('Images/thermoPaleYellow.jpg')
+                        if 500<distance<=566:
+                            therm=pygame.image.load('Images/thermoLightBlu.jpg')
 
-                            windowSurface.blit(therm,therm.get_rect(center=(8*size[0]/10,size[1]/2)))
-                            clicked=rec
-                            clickedbox=rects.index(rec)+1
-                            if clickedbox not in blacklist:
-                                blacklist.append(clickedbox)
-                            else:
-                                #'clicked already'
-                                clickedbox=-1
-                                break
-                            turncount+=1
-                            break
-
-                    if clickedbox==0: #i.e. clicked outside the boxes
-                        break
-                    if clickedbox==-1:
-                        #'this is clicked already'
-                        pass
-                    else:
-                        #black rectangle background
-                        blackrect=pygame.draw.rect(windowSurface,BLACK,(clicked.left,clicked.top,clicked.width,clicked.height))
-                        if clickedbox==key_idx:
-                            text=basicFont.render('BING!',True,ORANGE,BLACK)
-                            haswon=True
+                        windowSurface.blit(therm,therm.get_rect(center=(8*size[0]/10,size[1]/2)))
+                        clicked=rec
+                        clickedbox=rects.index(rec)+1
+                        if clickedbox not in blacklist:
+                            blacklist.append(clickedbox)
                         else:
-                            text=basicFont.render(str(clickedbox),True,ORANGE,BLACK)
-                        textbox=text.get_rect(center=(clicked.centerx,clicked.centery))
-                        windowSurface.blit(text,textbox)
-                        pygame.display.flip()
-                        pygame.time.delay(500)
-                        clickedbox=0 #reset value
-                        if turncount==6:
-                            if haswon:
-                                continue
-                            else:
-                                if not haswon:
-                                    #'you are out of turns!'
-                                    done=True
-                                    text=basicFont.render('GAME OVER', True, BLACK)
-                                    textbox=text.get_rect(center=(700,100))
-                                    windowSurface.blit(text,textbox)
-                                    pygame.display.flip()
-                                    pygame.time.delay(1500)
+                            #'clicked already'
+                            clickedbox=-1
+                            break
+                        turncount+=1
+                        break
+
+                if clickedbox==0: #i.e. clicked outside the boxes
+                    break
+                if clickedbox==-1:
+                    #'this is clicked already'
+                    pass
+                else:
+                    #black rectangle background
+                    blackrect=pygame.draw.rect(windowSurface,BLACK,(clicked.left,clicked.top,clicked.width,clicked.height))
+                    if clickedbox==key_idx:
+                        text=basicFont.render('BING!',True,ORANGE,BLACK)
+                        haswon=True
+                    else:
+                        text=basicFont.render(str(clickedbox),True,ORANGE,BLACK)
+                    textbox=text.get_rect(center=(clicked.centerx,clicked.centery))
+                    windowSurface.blit(text,textbox)
+                    pygame.display.flip()
+                    pygame.time.delay(500)
+                    clickedbox=0 #reset value
+                    if turncount==6:
+                        if haswon:
+                            continue
+                        else:
+                            if not haswon:
+                                #'you are out of turns!'
+                                done=True
+                                text=basicFont.render('GAME OVER', True, BLACK)
+                                textbox=text.get_rect(center=(700,100))
+                                windowSurface.blit(text,textbox)
+                                pygame.display.flip()
+                                pygame.time.delay(1500)
 
         windowSurface.blit(pygame.transform.scale(BG,(size)),(0,0))
 
-        if start == True:
-            for i in range(25):
-                if i+1 in blacklist:
-                    if i+1==key_idx:
-                        black_rec=pygame.draw.rect(windowSurface, BLACK, (right,down,horizontal,vertical),2)
-                        picture=KEYPIC
-                        box=picture.get_rect(center=(rects[i].centerx,rects[i].centery))
-                        windowSurface.blit(pygame.transform.scale(picture, (100,100)), (right,down,horizontal,vertical))
-                    else:
-                        black_rec=pygame.draw.rect(windowSurface, BLACK, (right,down,horizontal,vertical))
-                else:
+        for i in range(25):
+            if i+1 in blacklist:
+                if i+1==key_idx:
                     black_rec=pygame.draw.rect(windowSurface, BLACK, (right,down,horizontal,vertical),2)
-                rects[i]=black_rec
-                right+=100
-                if right==(50+100*(6-1)):
-                    down+=100
-                    right=50
-            windowSurface.blit(therm,therm.get_rect(center=(8*size[0]/10,size[1]/2)))
-            if haswon:
-                pygame.time.delay(500)
-                box=KEYPIC.get_rect(center=(800,300))
-                #'you win!'
-                done=1
-                text=basicFont.render('YOU WIN!', True, BLACK)
-                textbox=text.get_rect(center=(700,100))
-                windowSurface.blit(text,textbox)
-                windowSurface.blit(KEYPIC,box)
-                pygame.display.flip()
-                pygame.time.delay(1000)
+                    picture=KEYPIC
+                    box=picture.get_rect(center=(rects[i].centerx,rects[i].centery))
+                    windowSurface.blit(pygame.transform.scale(picture, (100,100)), (right,down,horizontal,vertical))
+                else:
+                    black_rec=pygame.draw.rect(windowSurface, BLACK, (right,down,horizontal,vertical))
+            else:
+                black_rec=pygame.draw.rect(windowSurface, BLACK, (right,down,horizontal,vertical),2)
+            rects[i]=black_rec
+            right+=100
+            if right==(50+100*(6-1)):
+                down+=100
+                right=50
+        windowSurface.blit(therm,therm.get_rect(center=(8*size[0]/10,size[1]/2)))
+        if haswon:
+            pygame.time.delay(500)
+            box=KEYPIC.get_rect(center=(800,300))
+            #'you win!'
+            done=1
+            text=basicFont.render('YOU WIN!', True, BLACK)
+            textbox=text.get_rect(center=(700,100))
+            windowSurface.blit(text,textbox)
+            windowSurface.blit(KEYPIC,box)
+            pygame.display.flip()
+            pygame.time.delay(1000)
                 
         pygame.display.flip()
 
 if __name__=='__main__':
-    SEARCH()
+    search_key()
