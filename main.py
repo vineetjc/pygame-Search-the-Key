@@ -3,6 +3,8 @@ from math import sqrt
 from pygame.locals import *
 
 pygame.init()
+clock = pygame.time.Clock()
+FPS=60
 
 #setup the window display
 size=(1024, 768)
@@ -15,6 +17,14 @@ basicFont = pygame.font.SysFont(None, 48)
 #set colors R,G,B code
 BLACK = (0, 0, 0)
 ORANGE = (255,140,0)
+
+def draw_text(surf,text,size,x,y):
+    font_name=pygame.font.match_font('arial')
+    font=pygame.font.Font(font_name,size)
+    text_surface=font.render(text,True,ORANGE)
+    text_rect=text_surface.get_rect()
+    text_rect.midtop=(x,y)
+    surf.blit(text_surface,text_rect)
 
 #Find key in 6 turns
 def SEARCH():
@@ -117,6 +127,7 @@ def SEARCH():
                                 windowSurface.blit(text,textbox)
                                 pygame.display.flip()
                                 pygame.time.delay(1500)
+				show_end_screen()
 
         windowSurface.blit(pygame.transform.scale(BG,(size)),(0,0))
         for i in range(25):
@@ -147,7 +158,28 @@ def SEARCH():
             windowSurface.blit(KEYPIC,box)
             pygame.display.flip()
             pygame.time.delay(1000)
+	    show_end_screen()
         pygame.display.flip()
+
+def show_end_screen():
+    BG=pygame.image.load('Images/jail background.jpg')
+    windowSurface.blit(pygame.transform.scale(BG,(size)),(0,0))
+    draw_text(windowSurface,"Search_the_Key",30,500,200)
+    draw_text(windowSurface,"Press Space to start a new game",25,500,500)
+    pygame.display.flip()
+    waiting=True
+    while waiting:
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_SPACE:
+                    waiting=False
+		    SEARCH()
+                if event.key==pygame.K_ESCAPE:
+                    pygame.quit();
+            if event.type==pygame.QUIT:
+                pygame.quit();
 
 if __name__=='__main__':
     SEARCH()
+    
