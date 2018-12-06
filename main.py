@@ -101,7 +101,7 @@ def search_key():
             howtotext = pygame.font.SysFont("liberationserif",20)
             textSurf3, textRect3 = text_objects("HOW-TO-PLAY", howtotext)
             textRect3.center = ( (width/2), (height/2) + 225)
-            
+
             windowSurface.blit(pygame.transform.scale(STARTGOLDKEY,(200,100)),(412,70))
 
             if x>=buttonLeft and x<=buttonRight and y>=height/2+125 and y<=height/2+125+buttonHeight:
@@ -115,14 +115,12 @@ def search_key():
                 pygame.draw.rect(windowSurface, GOLD, howtoRect)
 
             else:
-                print x,y
-                print buttonLeft,buttonRight,height/2+200,height/2+200+buttonHeight
                 pygame.draw.rect(windowSurface, GREEN, howtoRect)
 
             windowSurface.blit(textSurf1, textRect1)
             windowSurface.blit(textSurf2, textRect2)
             windowSurface.blit(textSurf3, textRect3)
-            
+
 
         elif howto == True:
             startmenu = pygame.font.SysFont("liberationserif",20)
@@ -142,7 +140,7 @@ def search_key():
 
             instFont = []
             instSurfRect = []
-            
+
             for i in range(lenInstructions):
                 instFont.append(pygame.font.SysFont("liberationserif",20))
                 instSurfRect.append(text_objects(instructionSet[i], instFont[i]))
@@ -156,7 +154,7 @@ def search_key():
                 pygame.draw.rect(windowSurface, GOLD, backRect)
 
             else:
-                pygame.draw.rect(windowSurface, GREEN, backRect)    
+                pygame.draw.rect(windowSurface, GREEN, backRect)
 
             windowSurface.blit(textSurf4, textRect4)
             windowSurface.blit(textSurf5, textRect5)
@@ -286,7 +284,7 @@ def search_key():
             windowSurface.blit(KEYPIC,box)
             pygame.display.flip()
             pygame.time.delay(1000)
-                
+
         pygame.display.flip()
 
 if __name__=='__main__':
