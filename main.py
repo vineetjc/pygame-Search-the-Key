@@ -6,10 +6,12 @@ pygame.init()
 
 #setup the window display
 size=(1024, 768)
+FPS=60
 width=size[0]
 height=size[1]
 windowSurface = pygame.display.set_mode((size), 0, 32)
 pygame.display.set_caption('Find the key!')
+clock = pygame.time.Clock()
 
 # set up fonts
 basicFont = pygame.font.SysFont(None, 48)
@@ -253,6 +255,7 @@ def search_key():
                                 windowSurface.blit(text,textbox)
                                 pygame.display.flip()
                                 pygame.time.delay(1500)
+				show_end_screen()
 
         windowSurface.blit(pygame.transform.scale(BG,(size)),(0,0))
 
@@ -284,8 +287,33 @@ def search_key():
             windowSurface.blit(KEYPIC,box)
             pygame.display.flip()
             pygame.time.delay(1000)
+	    show_end_screen()
 
         pygame.display.flip()
+
+def show_end_screen():
+    BG=pygame.image.load('Images/jail background.jpg')
+    windowSurface.blit(pygame.transform.scale(BG,(size)),(0,0))
+    backtext = pygame.font.SysFont("liberationserif",40)
+    textSurf, textRect = text_objects("Dare to play again!!", backtext)
+    textRect.center = ( (width/2), (height/2) - 200)
+    windowSurface.blit(textSurf, textRect)
+    textSurf, textRect = text_objects("Press space to play again", backtext)
+    textRect.center = ( (width/2), (height/2) + 200)
+    windowSurface.blit(textSurf, textRect)
+    pygame.display.flip()
+    waiting=True
+    while waiting:
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_SPACE:
+                    waiting=False
+		    search_key()
+                if event.key==pygame.K_ESCAPE:
+                    pygame.quit();
+            if event.type==pygame.QUIT:
+                pygame.quit();
 
 if __name__=='__main__':
     search_key()
