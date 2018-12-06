@@ -138,7 +138,7 @@ def SEARCH():
         windowSurface.blit(therm,therm.get_rect(center=(8*size[0]/10,size[1]/2)))
         if haswon:
             pygame.time.delay(500)
-            box=KEYPIC.get_rect(center=(812,384))
+            box=KEYPIC.get_rect(center=(512,384))
             #'you win!'
             done=1
             text=basicFont.render('YOU WIN!', True, BLACK)
