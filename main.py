@@ -3,13 +3,15 @@ from math import sqrt
 from pygame.locals import *
 
 pygame.init()
-clock = pygame.time.Clock()
-FPS=60
 
 #setup the window display
 size=(1024, 768)
+FPS=60
+width=size[0]
+height=size[1]
 windowSurface = pygame.display.set_mode((size), 0, 32)
 pygame.display.set_caption('Find the key!')
+clock = pygame.time.Clock()
 
 # set up fonts
 basicFont = pygame.font.SysFont(None, 48)
@@ -17,17 +19,34 @@ basicFont = pygame.font.SysFont(None, 48)
 #set colors R,G,B code
 BLACK = (0, 0, 0)
 ORANGE = (255,140,0)
+GREEN = (0,225,0)
+GOLD = (255,223,0)
 
-def draw_text(surf,text,size,x,y):
-    font_name=pygame.font.match_font('arial')
-    font=pygame.font.Font(font_name,size)
-    text_surface=font.render(text,True,ORANGE)
-    text_rect=text_surface.get_rect()
-    text_rect.midtop=(x,y)
-    surf.blit(text_surface,text_rect)
+instructionSet = ["1. There exists a 5x5 grid, one of which holds the key",
+                  "2. You have 6 tries to find the key",
+                  "3. As you go closer to the key, the temperature increases",
+                  "   and as you go away from the key, it decreases",
+                  "4. If you find the key in 6 turns, you win, else you lose"]
+
+#Start Button
+startRect = pygame.Rect((392,509,240,50))
+#Instruction Button
+howtoRect = pygame.Rect((392,584,240,50))
+#Back Button
+backRect = pygame.Rect((392,584,240,50))
+
+#Function for rendering text
+def text_objects(text, font):
+  textSurface = font.render(text, True, BLACK)
+  return textSurface, textSurface.get_rect()
 
 #Find key in 6 turns
-def SEARCH():
+def search_key():
+
+    #Co-ordinates for tracking mouse movement
+    x = y = 0
+
+    STARTGOLDKEY=pygame.image.load('./Images/goldkey.png')
     KEYPIC=pygame.image.load('Images/THE KEY.jpg')
     BG=pygame.image.load('Images/jail background.jpg')
     therm=pygame.image.load('Images/thermoLightBlu.jpg')
@@ -37,22 +56,131 @@ def SEARCH():
     key_idx=random.randint(1,25) #randomize box with key
     turncount=0 #to check turn count
     haswon=False #to check if successfully selected the key
+    buttonWidth=240
+    buttonHeight=50
+    buttonLeft=width/2-(buttonWidth/2)
+    buttonRight=width/2+(buttonWidth/2)
 
     done=False #loop variable
 
+    howto = False #Instruction Menu
+    start = False #Game Started
+
+    #Initialise fonts
+    pygame.font.init()
+
     clickedbox=0 #to set default value
-    while not done:
+
+    #Initial Event
+    event = pygame.event.poll()
+
+    while event.type != pygame.QUIT:
+
+        windowSurface.blit(pygame.transform.scale(BG,(size)),(0,0))
+
+        event = pygame.event.poll()
+
+        if event.type == pygame.MOUSEMOTION:
+            x, y = event.pos
+
+        if start == False and howto == False:
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                if howtoRect.collidepoint(event.pos):
+                    howto = True
+
+                elif startRect.collidepoint(event.pos):
+                    start = True
+                    break
+
+            title = pygame.font.SysFont("symbola",100)
+            textSurf1, textRect1 = text_objects("Find The Key!", title)
+            textRect1.center = ( (width/2), (height/2) - 100)
+
+            findkey = pygame.font.SysFont("liberationserif",20)
+            textSurf2, textRect2 = text_objects("LET'S FIND THE KEY!", findkey)
+            textRect2.center = ( (width/2), (height/2) + 150)
+
+            howtotext = pygame.font.SysFont("liberationserif",20)
+            textSurf3, textRect3 = text_objects("HOW-TO-PLAY", howtotext)
+            textRect3.center = ( (width/2), (height/2) + 225)
+
+            windowSurface.blit(pygame.transform.scale(STARTGOLDKEY,(200,100)),(412,70))
+
+            if x>=buttonLeft and x<=buttonRight and y>=height/2+125 and y<=height/2+125+buttonHeight:
+                pygame.draw.rect(windowSurface, GOLD, startRect)
+
+            else:
+                pygame.draw.rect(windowSurface, GREEN, startRect)
+
+
+            if x>=buttonLeft and x<=buttonRight and y>=height/2+200 and y<=height/2+200+buttonHeight:
+                pygame.draw.rect(windowSurface, GOLD, howtoRect)
+
+            else:
+                pygame.draw.rect(windowSurface, GREEN, howtoRect)
+
+            windowSurface.blit(textSurf1, textRect1)
+            windowSurface.blit(textSurf2, textRect2)
+            windowSurface.blit(textSurf3, textRect3)
+
+
+        elif howto == True:
+            startmenu = pygame.font.SysFont("liberationserif",20)
+            textSurf4, textRect4 = text_objects("BACK TO START MENU", startmenu)
+            textRect4.center = ( (width/2), (height/2) + 150)
+
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                xpress, ypress = event.pos
+                if backRect.collidepoint(event.pos):
+                    howto = 0
+
+            instructions = pygame.font.SysFont("symbola",50)
+            textSurf4, textRect4 = text_objects("Instructions", instructions)
+            textRect4.center = ( (width/2), (height/2) - 200)
+
+            lenInstructions = len(instructionSet)
+
+            instFont = []
+            instSurfRect = []
+
+            for i in range(lenInstructions):
+                instFont.append(pygame.font.SysFont("liberationserif",20))
+                instSurfRect.append(text_objects(instructionSet[i], instFont[i]))
+                instSurfRect[i][1].center = ( (width/2), (height/2) - 100 + i * 50)
+
+            backtext = pygame.font.SysFont("liberationserif",20)
+            textSurf5, textRect5 = text_objects("BACK TO MENU", backtext)
+            textRect5.center = ( (width/2), (height/2) + 225)
+
+            if x>=buttonLeft and x<=buttonRight and y>=height/2+200 and y<=height/2+200+buttonHeight:
+                pygame.draw.rect(windowSurface, GOLD, backRect)
+
+            else:
+                pygame.draw.rect(windowSurface, GREEN, backRect)
+
+            windowSurface.blit(textSurf4, textRect4)
+            windowSurface.blit(textSurf5, textRect5)
+
+            for i in range(lenInstructions):
+                windowSurface.blit(instSurfRect[i][0],instSurfRect[i][1])
+
+        pygame.display.flip()
+
+    while not done and start == True:
         right=50
         down=50
         horizontal=100
         vertical=100
+
         for event in pygame.event.get():
             if event.type==QUIT:
                 pygame.quit()
                 sys.exit()
+
             if event.type==MOUSEBUTTONDOWN and event.button==1:
                 pos=event.pos
                 for rec in rects:
+                    #print(rec," ",pos)
                     if rec.collidepoint(pos):
                         distance=sqrt((rec.center[0]-rects[key_idx-1].center[0])**2 + (rec.center[1]-rects[key_idx-1].center[1])**2)
                         # distance to hot/cold
@@ -130,6 +258,7 @@ def SEARCH():
 				show_end_screen()
 
         windowSurface.blit(pygame.transform.scale(BG,(size)),(0,0))
+
         for i in range(25):
             if i+1 in blacklist:
                 if i+1==key_idx:
@@ -159,13 +288,19 @@ def SEARCH():
             pygame.display.flip()
             pygame.time.delay(1000)
 	    show_end_screen()
+
         pygame.display.flip()
 
 def show_end_screen():
     BG=pygame.image.load('Images/jail background.jpg')
     windowSurface.blit(pygame.transform.scale(BG,(size)),(0,0))
-    draw_text(windowSurface,"Search_the_Key",30,500,200)
-    draw_text(windowSurface,"Press Space to start a new game",25,500,500)
+    backtext = pygame.font.SysFont("liberationserif",40)
+    textSurf, textRect = text_objects("Dare to play again!!", backtext)
+    textRect.center = ( (width/2), (height/2) - 200)
+    windowSurface.blit(textSurf, textRect)
+    textSurf, textRect = text_objects("Press space to play again", backtext)
+    textRect.center = ( (width/2), (height/2) + 200)
+    windowSurface.blit(textSurf, textRect)
     pygame.display.flip()
     waiting=True
     while waiting:
@@ -174,12 +309,11 @@ def show_end_screen():
             if event.type==pygame.KEYUP:
                 if event.key==pygame.K_SPACE:
                     waiting=False
-		    SEARCH()
+		    search_key()
                 if event.key==pygame.K_ESCAPE:
                     pygame.quit();
             if event.type==pygame.QUIT:
                 pygame.quit();
 
 if __name__=='__main__':
-    SEARCH()
-    
+    search_key()
