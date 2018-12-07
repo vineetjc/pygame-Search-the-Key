@@ -29,6 +29,7 @@ def SEARCH():
     haswon=False #to check if successfully selected the key
 
     done=False #loop variable
+ # turn=int(input("ENTER THE NUMBER OF TURNS"))
 
     clickedbox=0 #to set default value
     while not done:
@@ -138,13 +139,11 @@ def SEARCH():
         windowSurface.blit(therm,therm.get_rect(center=(8*size[0]/10,size[1]/2)))
         if haswon:
             pygame.time.delay(500)
-            box=KEYPIC.get_rect(center=(512,384))
             #'you win!'
             done=1
             text=basicFont.render('YOU WIN!', True, BLACK)
             textbox=text.get_rect(center=(700,100))
             windowSurface.blit(text,textbox)
-            windowSurface.blit(KEYPIC,box)
             pygame.display.flip()
             pygame.time.delay(1000)
         pygame.display.flip()
