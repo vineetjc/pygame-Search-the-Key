@@ -300,7 +300,7 @@ def show_end_screen():
     quitRect = pygame.Rect((392,584,240,50))
     event=pygame.event.poll()
     restart=False #Restart option
-    
+
     while event.type != pygame.QUIT:
 
         windowSurface.blit(pygame.transform.scale(BG,(size)),(0,0))
@@ -310,12 +310,12 @@ def show_end_screen():
 	if event.type == pygame.MOUSEMOTION:
             x, y = event.pos
 
-    	findkey = pygame.font.SysFont("liberationserif",20)
-    	textSurf1, textRect1 = text_objects("PLAY AGAIN", findkey)
+    	playagaintext = pygame.font.SysFont("liberationserif",20)
+    	textSurf1, textRect1 = text_objects("PLAY AGAIN", playagaintext)
     	textRect1.center = ( (width/2), (height/2) + 150)
 
-    	howtotext = pygame.font.SysFont("liberationserif",20)
-    	textSurf2, textRect2 = text_objects("QUIT", howtotext)
+    	quittext = pygame.font.SysFont("liberationserif",20)
+    	textSurf2, textRect2 = text_objects("QUIT", quittext)
     	textRect2.center = ( (width/2), (height/2) + 225)
 
     	if x>=buttonLeft and x<=buttonRight and y>=height/2+125 and y<=height/2+125+buttonHeight:
