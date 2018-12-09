@@ -45,9 +45,9 @@ def search_key():
     x = y = 0
 
     STARTGOLDKEY=pygame.image.load('./Images/goldkey.png')
-    KEYPIC=pygame.image.load('Images/THE KEY.jpg')
+    KEYPIC=pygame.image.load('Images/THE KEY.png')
     BG=pygame.image.load('Images/jail background.jpg')
-    therm=pygame.image.load('Images/thermoLightBlu.jpg')
+    therm=pygame.image.load('Images/thermoLightBlu.png')
 
     rects=[0 for i in range(25)] #list for boxes in the game
     blacklist=[] #stores numbers of the boxes clicked (already)
@@ -102,7 +102,7 @@ def search_key():
             textSurf3, textRect3 = text_objects("HOW-TO-PLAY", howtotext)
             textRect3.center = ( (width/2), (height/2) + 225)
 
-            windowSurface.blit(pygame.transform.scale(STARTGOLDKEY,(200,100)),(412,70))
+            windowSurface.blit(pygame.transform.scale(KEYPIC,(200,100)),(412,70))
 
             if x>=buttonLeft and x<=buttonRight and y>=height/2+125 and y<=height/2+125+buttonHeight:
                 pygame.draw.rect(windowSurface, GOLD, startRect)
@@ -183,33 +183,33 @@ def search_key():
                         distance=sqrt((rec.center[0]-rects[key_idx-1].center[0])**2 + (rec.center[1]-rects[key_idx-1].center[1])**2)
                         # distance to hot/cold
                         if distance<=100:
-                            therm=pygame.image.load('Images/thermo+12Red.jpg')
+                            therm=pygame.image.load('Images/thermo+12Red.png')
                         if 100<distance<=142:
-                            therm=pygame.image.load('Images/thermo+11VermRed.jpg')
+                            therm=pygame.image.load('Images/thermo+11VermRed.png')
                         if 142<distance<=200:
-                            therm=pygame.image.load('Images/thermo+10Vermillion.jpg')
+                            therm=pygame.image.load('Images/thermo+10Vermillion.png')
                         if 200<distance<=224:
-                            therm=pygame.image.load('Images/thermo+9DOrange.jpg')
+                            therm=pygame.image.load('Images/thermo+9DOrange.png')
                         if 224<distance<=283:
-                            therm=pygame.image.load('Images/thermo+8Orange.jpg')
+                            therm=pygame.image.load('Images/thermo+8Orange.png')
                         if 283<distance<=300:
-                            therm=pygame.image.load('Images/thermo+7Orangyish.jpg')
+                            therm=pygame.image.load('Images/thermo+7Orangyish.png')
                         if 300<distance<=317:
-                            therm=pygame.image.load('Images/thermo+6Yellow.jpg')
+                            therm=pygame.image.load('Images/thermo+6Yellow.png')
                         if 317<distance<=361:
-                            therm=pygame.image.load('Images/thermo+5Yellow.jpg')
+                            therm=pygame.image.load('Images/thermo+5Yellow.png')
                         if 361<distance<=400:
-                            therm=pygame.image.load('Images/thermo+4Yellow.jpg')
+                            therm=pygame.image.load('Images/thermo+4Yellow.png')
                         if 400<distance<=413:
-                            therm=pygame.image.load('Images/thermo+3Yellow.jpg')
+                            therm=pygame.image.load('Images/thermo+3Yellow.png')
                         if 413<distance<=425:
-                            therm=pygame.image.load('Images/thermo+2Yellow.jpg')
+                            therm=pygame.image.load('Images/thermo+2Yellow.png')
                         if 425<distance<=448:
-                            therm=pygame.image.load('Images/thermo+1PaleYellow.jpg')
+                            therm=pygame.image.load('Images/thermo+1PaleYellow.png')
                         if 448<distance<=500:
-                            therm=pygame.image.load('Images/thermoPaleYellow.jpg')
+                            therm=pygame.image.load('Images/thermoPaleYellow.png')
                         if 500<distance<=566:
-                            therm=pygame.image.load('Images/thermoLightBlu.jpg')
+                            therm=pygame.image.load('Images/thermoLightBlu.png')
 
                         windowSurface.blit(therm,therm.get_rect(center=(8*size[0]/10,size[1]/2)))
                         clicked=rec
