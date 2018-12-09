@@ -29,7 +29,6 @@ def SEARCH():
     haswon=False #to check if successfully selected the key
 
     done=False #loop variable
- # turn=int(input("ENTER THE NUMBER OF TURNS"))
 
     clickedbox=0 #to set default value
     while not done:
