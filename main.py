@@ -341,7 +341,7 @@ def show_end_screen():
                     		restart = True
 
                 	elif quitRect.collidepoint(event.pos):
-                    		pygame.quit();
+                    		sys.exit()
 
     	if restart == True:
 		search_key()
