@@ -164,9 +164,6 @@ def search_key():
 
         pygame.display.flip()
 
-    print done
-    print start
-
     while not done and start == True:
         right=50
         down=50
