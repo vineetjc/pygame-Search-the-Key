@@ -45,7 +45,7 @@ def text_objects(text, font):
   textSurface = font.render(text, True, BLACK)
   return textSurface, textSurface.get_rect()
 
-#Find key in 6 turns
+#Find key in selected number of turns
 def search_key():
 
     #Co-ordinates for tracking mouse movement
