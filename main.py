@@ -25,7 +25,7 @@ instructionSet = ["1. There exists a 5x5 grid, one of which holds the key",
                   "2. You have 6 tries to find the key",
                   "3. As you go closer to the key, the temperature increases",
                   "   and as you go away from the key, it decreases",
-                  "4. If you find the key in 6 turns, you win, else you lose"]
+                  "4. If you find the key in the selected number of turns, you win, else you lose"]
 
 #Start Button
 startRect = pygame.Rect((392,509,240,50))
