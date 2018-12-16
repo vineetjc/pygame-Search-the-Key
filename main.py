@@ -19,12 +19,13 @@ BLACK = (0, 0, 0)
 ORANGE = (255,140,0)
 GREEN = (0,225,0)
 GOLD = (255,223,0)
+WHITE = (255,255,255)
 
 instructionSet = ["1. There exists a 5x5 grid, one of which holds the key",
                   "2. You have 6 tries to find the key",
                   "3. As you go closer to the key, the temperature increases",
                   "   and as you go away from the key, it decreases",
-                  "4. If you find the key in 6 turns, you win, else you lose"]
+                  "4. If you find the key in the selected nubmer of turns, you win, else you lose"]
 
 #Start Button
 startRect = pygame.Rect((392,509,240,50))
@@ -32,13 +33,19 @@ startRect = pygame.Rect((392,509,240,50))
 howtoRect = pygame.Rect((392,584,240,50))
 #Back Button
 backRect = pygame.Rect((392,584,240,50))
+#decrement number of turns
+decTurnsRect = pygame.Rect((360,390,60,60))
+#increment number of turns
+incTurnsRect = pygame.Rect((604,390,60,60))
+#number of turns
+numTurnsRect = pygame.Rect((442,390,142,60))
 
 #Function for rendering text
 def text_objects(text, font):
   textSurface = font.render(text, True, BLACK)
   return textSurface, textSurface.get_rect()
 
-#Find key in 6 turns
+#Find key in selected number of turns
 def search_key():
 
     #Co-ordinates for tracking mouse movement
@@ -53,6 +60,7 @@ def search_key():
     blacklist=[] #stores numbers of the boxes clicked (already)
     key_idx=random.randint(1,25) #randomize box with key
     turncount=0 #to check turn count
+    maxturns = 6 #default number of turns allowed
     haswon=False #to check if successfully selected the key
     buttonWidth=240
     buttonHeight=50
@@ -89,6 +97,20 @@ def search_key():
                 elif startRect.collidepoint(event.pos):
                     start = True
                     break
+                
+                elif incTurnsRect.collidepoint(event.pos):
+                    if maxturns<8:
+                        maxturns=maxturns+1
+                        
+                    elif maxturns>8:
+                        maxturns = maxturns+0
+                        
+                elif decTurnsRect.collidepoint(event.pos):
+                    if maxturns>4:
+                        maxturns=maxturns-1
+
+                    elif maxturns<=4:
+                        maxturns = maxturns-0
 
             title = pygame.font.SysFont("symbola",100)
             textSurf1, textRect1 = text_objects("Find The Key!", title)
@@ -101,6 +123,18 @@ def search_key():
             howtotext = pygame.font.SysFont("liberationserif",20)
             textSurf3, textRect3 = text_objects("HOW-TO-PLAY", howtotext)
             textRect3.center = ( (width/2), (height/2) + 225)
+
+            decTurnText = pygame.font.SysFont("liberationserif",40)
+            textSurf4, textRect4 = text_objects("-", decTurnText)
+            textRect4.center = ( 390, 420)
+
+            incTurnText = pygame.font.SysFont("liberationserif",40)
+            textSurf5, textRect5 = text_objects("+", incTurnText)
+            textRect5.center = ( 634, 420)
+
+            numTurnText = pygame.font.SysFont("liberationserif",30)
+            textSurf6, textRect6 = text_objects(str(maxturns) + " turns", numTurnText)
+            textRect6.center = ( 512, 420)
 
             windowSurface.blit(pygame.transform.scale(KEYPIC,(200,100)),(412,70))
 
@@ -117,9 +151,27 @@ def search_key():
             else:
                 pygame.draw.rect(windowSurface, GREEN, howtoRect)
 
+            if x>=360 and x<=420 and y>=390 and y<=450:
+                pygame.draw.rect(windowSurface, GOLD, decTurnsRect)
+
+            else:
+                pygame.draw.rect(windowSurface, GREEN, decTurnsRect)
+
+            if x>=604 and x<=664 and y>=390 and y<=450:
+                pygame.draw.rect(windowSurface, GOLD, incTurnsRect)
+
+            else:
+                pygame.draw.rect(windowSurface, GREEN, incTurnsRect)
+
+
+            pygame.draw.rect(windowSurface, WHITE, numTurnsRect)
+
             windowSurface.blit(textSurf1, textRect1)
             windowSurface.blit(textSurf2, textRect2)
             windowSurface.blit(textSurf3, textRect3)
+            windowSurface.blit(textSurf4, textRect4)
+            windowSurface.blit(textSurf5, textRect5)
+            windowSurface.blit(textSurf6, textRect6)
 
 
         elif howto == True:
@@ -241,7 +293,7 @@ def search_key():
                     pygame.display.flip()
                     pygame.time.delay(500)
                     clickedbox=0 #reset value
-                    if turncount==6:
+                    if turncount==maxturns:
                         if haswon:
                             continue
                         else:
