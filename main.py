@@ -3,6 +3,7 @@ from math import sqrt
 from pygame.locals import *
 
 pygame.init()
+pygame.mixer.init()
 
 #setup the window display
 size=(1024, 768)
@@ -233,6 +234,8 @@ def search_key():
                     blackrect=pygame.draw.rect(windowSurface,BLACK,(clicked.left,clicked.top,clicked.width,clicked.height))
                     if clickedbox==key_idx:
                         text=basicFont.render('BING!',True,ORANGE,BLACK)
+                        pygame.mixer.music.load('./sounds/win.mp3')
+                        pygame.mixer.music.play(0)
                         haswon=True
                     else:
                         text=basicFont.render(str(clickedbox),True,ORANGE,BLACK)
@@ -249,6 +252,8 @@ def search_key():
                                 #'you are out of turns!'
                                 done=True
                                 text=basicFont.render('GAME OVER', True, BLACK)
+                                pygame.mixer.music.load('./sounds/lose.mp3')
+                                pygame.mixer.music.play(0)
                                 textbox=text.get_rect(center=(700,100))
                                 windowSurface.blit(text,textbox)
                                 pygame.display.flip()
