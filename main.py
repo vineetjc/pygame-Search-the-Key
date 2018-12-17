@@ -258,7 +258,7 @@ def search_key():
                                 windowSurface.blit(text,textbox)
                                 pygame.display.flip()
                                 pygame.time.delay(1500)
-				show_end_screen()
+                                show_end_screen()
 
         windowSurface.blit(pygame.transform.scale(BG,(size)),(0,0))
 
@@ -288,7 +288,7 @@ def search_key():
             windowSurface.blit(text,textbox)
             pygame.display.flip()
             pygame.time.delay(1000)
-	    show_end_screen()
+            show_end_screen()
 
         pygame.display.flip()
 
@@ -312,44 +312,45 @@ def show_end_screen():
 
         event = pygame.event.poll()
 
-	if event.type == pygame.MOUSEMOTION:
+        if event.type == pygame.MOUSEMOTION:
             x, y = event.pos
 
-    	playagaintext = pygame.font.SysFont("liberationserif",20)
-    	textSurf1, textRect1 = text_objects("PLAY AGAIN", playagaintext)
-    	textRect1.center = ( (width/2), (height/2) + 150)
+        playagaintext = pygame.font.SysFont("liberationserif",20)
+        textSurf1, textRect1 = text_objects("PLAY AGAIN", playagaintext)
+        textRect1.center = ( (width/2), (height/2) + 150)
 
-    	quittext = pygame.font.SysFont("liberationserif",20)
-    	textSurf2, textRect2 = text_objects("QUIT", quittext)
-    	textRect2.center = ( (width/2), (height/2) + 225)
+        quittext = pygame.font.SysFont("liberationserif",20)
+        textSurf2, textRect2 = text_objects("QUIT", quittext)
+        textRect2.center = ( (width/2), (height/2) + 225)
 
-    	if x>=buttonLeft and x<=buttonRight and y>=height/2+125 and y<=height/2+125+buttonHeight:
-		pygame.draw.rect(windowSurface, GOLD, restartRect)
+        if x>=buttonLeft and x<=buttonRight and y>=height/2+125 and y<=height/2+125+buttonHeight:
+            pygame.draw.rect(windowSurface, GOLD, restartRect)
 
-    	else:
-        	pygame.draw.rect(windowSurface, GREEN, restartRect)
+        else:
+            pygame.draw.rect(windowSurface, GREEN, restartRect)
 
-    	if x>=buttonLeft and x<=buttonRight and y>=height/2+200 and y<=height/2+200+buttonHeight:
-        	pygame.draw.rect(windowSurface, GOLD, quitRect)
+        if x>=buttonLeft and x<=buttonRight and y>=height/2+200 and y<=height/2+200+buttonHeight:
+            pygame.draw.rect(windowSurface, GOLD, quitRect)
 
-    	else:
-        	pygame.draw.rect(windowSurface, GREEN, quitRect)
+        else:
+            pygame.draw.rect(windowSurface, GREEN, quitRect)
 
 
-    	windowSurface.blit(textSurf1, textRect1)
-    	windowSurface.blit(textSurf2, textRect2)
-    	pygame.display.flip()
+        windowSurface.blit(textSurf1, textRect1)
+        windowSurface.blit(textSurf2, textRect2)
+        pygame.display.flip()
 
-    	if restart == False:
-            	if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                	if restartRect.collidepoint(event.pos):
-                    		restart = True
+        if restart == False:
+             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                if restartRect.collidepoint(event.pos):
+                    restart = True
 
-                	elif quitRect.collidepoint(event.pos):
-                    		sys.exit()
+                elif quitRect.collidepoint(event.pos):
+                    pygame.quit()
+                    sys.exit()
 
-    	if restart == True:
-		search_key()
+        if restart == True:
+            search_key()
 
 
 
