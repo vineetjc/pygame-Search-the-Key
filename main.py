@@ -43,6 +43,8 @@ decTurnsRect = pygame.Rect((360,390,60,60))
 incTurnsRect = pygame.Rect((604,390,60,60))
 #number of turns
 numTurnsRect = pygame.Rect((442,390,142,60))
+#exit
+exitRect=pygame.Rect((392,659,240,50))
 
 #Function for rendering text
 def text_objects(text, font):
@@ -74,7 +76,8 @@ def search_key():
     done=False #loop variable
 
     howto = False #Instruction Menu
-    start = False #Game Started
+    start = False #Game Start
+    exit = False #Exit
 
     #Initialise fonts
     pygame.font.init()
@@ -101,6 +104,11 @@ def search_key():
                 elif startRect.collidepoint(event.pos):
                     start = True
                     break
+
+		elif exitRect.collidepoint(event.pos):
+                    exit = True
+		    pygame.quit()
+                    sys.exit()
 
                 elif incTurnsRect.collidepoint(event.pos):
                     if maxturns<8:
@@ -134,6 +142,10 @@ def search_key():
             textSurf6, textRect6 = text_objects(str(maxturns) + " turns", numTurnText)
             textRect6.center = ( 512, 420)
 
+	    howtotext = pygame.font.SysFont("liberationserif",20)
+            textSurf7, textRect7 = text_objects("EXIT", howtotext)
+            textRect7.center = ( (width/2), (height/2) + 300)
+
             windowSurface.blit(pygame.transform.scale(KEYPIC,(200,100)),(412,70))
 
             if x>=buttonLeft and x<=buttonRight and y>=height/2+125 and y<=height/2+125+buttonHeight:
@@ -148,6 +160,12 @@ def search_key():
 
             else:
                 pygame.draw.rect(windowSurface, GREEN, howtoRect)
+
+	    if x>=buttonLeft and x<=buttonRight and y>=height/2+275 and y<=height/2+275+buttonHeight:
+                pygame.draw.rect(windowSurface, GOLD, exitRect)
+
+            else:
+                pygame.draw.rect(windowSurface, GREEN, exitRect)
 
             if x>=360 and x<=420 and y>=390 and y<=450:
                 pygame.draw.rect(windowSurface, GOLD, decTurnsRect)
@@ -170,6 +188,7 @@ def search_key():
             windowSurface.blit(textSurf4, textRect4)
             windowSurface.blit(textSurf5, textRect5)
             windowSurface.blit(textSurf6, textRect6)
+	    windowSurface.blit(textSurf7, textRect7)
 
 
         elif howto == True:
