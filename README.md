@@ -7,15 +7,20 @@ A small game made using pygame. Search the key from a 5x5 grid in 6 turns with i
 
 ### GETTING STARTED:
 
-### PREREQUISITES:
+##### PREREQUISITES:
 
 1.Python (2 or 3)
+
 2.Pygame
 
-##### STEP1: Fork the repository and clone your fork into your machine
-Go to the command prompt/terminal. Use `git clone`. This will create a clone of the project where you can make changes as you desire.
+##### STEP 1: Fork the repository and clone your fork into your machine
+Go to the command prompt/terminal. Use
 
-##### STEP2: Running the Game
+`git clone https://github.com/<insert your username>/pygame-Search-the-Key.git`.
+
+This will create a clone of the project where you can make changes as you desire.
+
+##### STEP 2: Running the Game
 Type `python main.py` to run the game.
 
 ![Alt text](https://github.com/vineetjc/pygame-Search-the-Key/blob/master/screenshots/1.png)
