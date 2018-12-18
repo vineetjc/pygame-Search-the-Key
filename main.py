@@ -44,9 +44,9 @@ def search_key():
     #Co-ordinates for tracking mouse movement
     x = y = 0
 
-    STARTGOLDKEY=pygame.image.load('./Images/success-silver-key.png')
-    KEYPIC=pygame.image.load('Images/success-silver-key.png')
-    BG=pygame.image.load('Images/jail2.jpg')
+    STARTGOLDKEY=pygame.image.load('./Images/goldkey.png')
+    KEYPIC=pygame.image.load('Images/THE KEY.png')
+    BG=pygame.image.load('Images/jail2.png')
     therm=pygame.image.load('Images/thermoLightBlu.png')
 
     rects=[0 for i in range(25)] #list for boxes in the game
