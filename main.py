@@ -1,4 +1,7 @@
-import pygame, sys, random
+import pygame
+import sys
+import random
+
 from math import sqrt
 from pygame.locals import *
 
@@ -97,20 +100,14 @@ def search_key():
                 elif startRect.collidepoint(event.pos):
                     start = True
                     break
-                
+
                 elif incTurnsRect.collidepoint(event.pos):
                     if maxturns<8:
                         maxturns=maxturns+1
-                        
-                    elif maxturns>8:
-                        maxturns = maxturns+0
-                        
+
                 elif decTurnsRect.collidepoint(event.pos):
                     if maxturns>4:
                         maxturns=maxturns-1
-
-                    elif maxturns<=4:
-                        maxturns = maxturns-0
 
             title = pygame.font.SysFont("symbola",100)
             textSurf1, textRect1 = text_objects("Find The Key!", title)
@@ -327,7 +324,7 @@ def search_key():
                 right=50
         windowSurface.blit(therm,therm.get_rect(center=(8*size[0]/10,size[1]/2)))
         if haswon:
-            pygame.time.delay(500)
+                pygame.time.delay(500)
             #'you win!'
             done=1
             text=basicFont.render('YOU WIN!', True, BLACK)
