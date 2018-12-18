@@ -226,6 +226,7 @@ def search_key():
         horizontal=100
         vertical=100
         turnsleft = maxturns-turncount
+        numTurnsLeft = pygame.font.SysFont("liberationserif",30)
 
         for event in pygame.event.get():
 
@@ -309,7 +310,6 @@ def search_key():
                             if not haswon:
                                 #'you are out of turns!'
                                 done=True
-                                numTurnsLeft = pygame.font.SysFont("liberationserif",30)
                                 textSurf9, textRect9 = text_objects("GAME OVER", numTurnsLeft)
                                 pygame.draw.rect(windowSurface, LIGHTRED, numTurnsLeftRect)
                                 textRect9.center = (300, 625)
@@ -323,19 +323,16 @@ def search_key():
         windowSurface.blit(pygame.transform.scale(BG,(size)),(0,0))
 
         if turnsleft<=8 and turnsleft>5:
-            numTurnsLeft = pygame.font.SysFont("liberationserif",30)
             textSurf9, textRect9 = text_objects(str(turnsleft) + " turns left", numTurnsLeft)
             textRect9.center = (300, 625)
             pygame.draw.rect(windowSurface, LIMEGREEN, numTurnsLeftRect)
 
         elif turnsleft<=5 and turnsleft>3:
-            numTurnsLeft = pygame.font.SysFont("liberationserif",30)
             textSurf9, textRect9 = text_objects(str(turnsleft) + " turns left", numTurnsLeft)
             textRect9.center = (300, 625)
             pygame.draw.rect(windowSurface, LIGHTBLUE, numTurnsLeftRect)
 
-        if turnsleft<=3 and turnsleft>1:
-            numTurnsLeft = pygame.font.SysFont("liberationserif",30)
+        elif turnsleft<=3 and turnsleft>1:
             textSurf9, textRect9 = text_objects(str(turnsleft) + " turns left", numTurnsLeft)
             textRect9.center = (300, 625)
             pygame.draw.rect(windowSurface, LIGHTYELLOW, numTurnsLeftRect)
@@ -368,7 +365,6 @@ def search_key():
             pygame.time.delay(500)
             #'you win!'
             done=True
-            numTurnsLeft = pygame.font.SysFont("liberationserif",30)
             textSurf9, textRect9 = text_objects("YOU WIN", numTurnsLeft)
             pygame.draw.rect(windowSurface, LIMEGREEN, numTurnsLeftRect)
             textRect9.center = (300, 625)
