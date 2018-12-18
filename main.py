@@ -323,31 +323,30 @@ def search_key():
         windowSurface.blit(pygame.transform.scale(BG,(size)),(0,0))
 
         if turnsleft<=8 and turnsleft>5:
-          numTurnsLeft = pygame.font.SysFont("liberationserif",30)
-          textSurf9, textRect9 = text_objects(str(turnsleft) + " turns left", numTurnsLeft)
-          textRect9.center = (300, 625)
-          pygame.draw.rect(windowSurface, LIMEGREEN, numTurnsLeftRect)
+            numTurnsLeft = pygame.font.SysFont("liberationserif",30)
+            textSurf9, textRect9 = text_objects(str(turnsleft) + " turns left", numTurnsLeft)
+            textRect9.center = (300, 625)
+            pygame.draw.rect(windowSurface, LIMEGREEN, numTurnsLeftRect)
 
         elif turnsleft<=5 and turnsleft>3:
-          numTurnsLeft = pygame.font.SysFont("liberationserif",30)
-          textSurf9, textRect9 = text_objects(str(turnsleft) + " turns left", numTurnsLeft)
-          textRect9.center = (300, 625)
-          pygame.draw.rect(windowSurface, LIGHTBLUE, numTurnsLeftRect)
+            numTurnsLeft = pygame.font.SysFont("liberationserif",30)
+            textSurf9, textRect9 = text_objects(str(turnsleft) + " turns left", numTurnsLeft)
+            textRect9.center = (300, 625)
+            pygame.draw.rect(windowSurface, LIGHTBLUE, numTurnsLeftRect)
 
         if turnsleft<=3 and turnsleft>1:
-          numTurnsLeft = pygame.font.SysFont("liberationserif",30)
-          textSurf9, textRect9 = text_objects(str(turnsleft) + " turns left", numTurnsLeft)
-          textRect9.center = (300, 625)
-          pygame.draw.rect(windowSurface, LIGHTYELLOW, numTurnsLeftRect)
+            numTurnsLeft = pygame.font.SysFont("liberationserif",30)
+            textSurf9, textRect9 = text_objects(str(turnsleft) + " turns left", numTurnsLeft)
+            textRect9.center = (300, 625)
+            pygame.draw.rect(windowSurface, LIGHTYELLOW, numTurnsLeftRect)
           
         elif turnsleft==1:
-          textSurf9, textRect9 = text_objects(str(turnsleft) + " turn left", numTurnsLeft)
-          textRect9.center = (300, 625)
-          pygame.draw.rect(windowSurface, LIGHTYELLOW, numTurnsLeftRect)
-
-
+            textSurf9, textRect9 = text_objects(str(turnsleft) + " turn left", numTurnsLeft)
+            textRect9.center = (300, 625)
+            pygame.draw.rect(windowSurface, LIGHTYELLOW, numTurnsLeftRect)
 
         windowSurface.blit(textSurf9, textRect9)
+        
         for i in range(25):
             if i+1 in blacklist:
                 if i+1==key_idx:
