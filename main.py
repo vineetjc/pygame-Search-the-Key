@@ -25,11 +25,11 @@ GREEN = (0,225,0)
 GOLD = (255,223,0)
 WHITE = (255,255,255)
 
-instructionSet = ["1. There exists a 5x5 grid, one of which holds the key",
-                  "2. You have 6 tries to find the key",
-                  "3. As you go closer to the key, the temperature increases",
+instructionSet = ["1. There exists a 5x5 grid, one of which holds the key",                
+                  "2. As you go closer to the key, the temperature increases",
                   "   and as you go away from the key, it decreases",
-                  "4. If you find the key in the selected nubmer of turns, you win, else you lose"]
+                  "3. You can vary the allowed number of turns between 4 and 8",
+                  "4. If you find the key in the selected number of turns, you win, else you lose"]
 
 #Start Button
 startRect = pygame.Rect((392,509,240,50))
