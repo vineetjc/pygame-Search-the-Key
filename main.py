@@ -227,6 +227,7 @@ def search_key():
         vertical=100
         turnsleft = maxturns-turncount
         numTurnsLeft = pygame.font.SysFont("liberationserif",30)
+        gameOverText = pygame.font.SysFont("liberationserif",25)
 
         for event in pygame.event.get():
 
@@ -310,7 +311,7 @@ def search_key():
                             if not haswon:
                                 #'you are out of turns!'
                                 done=True
-                                textSurf9, textRect9 = text_objects("GAME OVER", numTurnsLeft)
+                                textSurf9, textRect9 = text_objects("GAME OVER", gameOverText)
                                 pygame.draw.rect(windowSurface, LIGHTRED, numTurnsLeftRect)
                                 textRect9.center = (300, 625)
                                 windowSurface.blit(textSurf9, textRect9)
