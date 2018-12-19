@@ -30,10 +30,10 @@ LIGHTYELLOW = (250,250,204)
 LIGHTRED = (255,153,153)
 
 instructionSet = ["1. There exists a 5x5 grid, one of which holds the key",
-                  "2. You have 6 tries to find the key",
-                  "3. As you go closer to the key, the temperature increases",
+                  "2. As you go closer to the key, the temperature increases",
                   "   and as you go away from the key, it decreases",
-                  "4. If you find the key in the selected nubmer of turns, you win, else you lose"]
+                  "3. You can vary the allowed number of turns between 4 and 8",
+                  "4. If you find the key in the selected number of turns, you win!"]
 
 #Start Button
 startRect = pygame.Rect((392,509,240,50))
@@ -82,7 +82,7 @@ def search_key():
     done=False #loop variable
 
     howto = False #Instruction Menu
-    start = False #Game Started
+    start = False #Game Start
 
     #Initialise fonts
     pygame.font.init()
@@ -101,6 +101,7 @@ def search_key():
         if event.type == pygame.MOUSEMOTION:
             x, y = event.pos
 
+        #main menu
         if start == False and howto == False:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if howtoRect.collidepoint(event.pos):
@@ -109,6 +110,10 @@ def search_key():
                 elif startRect.collidepoint(event.pos):
                     start = True
                     break
+
+                elif exitRect.collidepoint(event.pos):
+                    pygame.quit()
+                    sys.exit()
 
                 elif incTurnsRect.collidepoint(event.pos):
                     if maxturns<8:
@@ -142,6 +147,10 @@ def search_key():
             textSurf6, textRect6 = text_objects(str(maxturns) + " turns", numTurnText)
             textRect6.center = ( 512, 420)
 
+            howtotext = pygame.font.SysFont("liberationserif",20)
+            textSurf7, textRect7 = text_objects("EXIT", howtotext)
+            textRect7.center = ( (width/2), (height/2) + 300)
+
             windowSurface.blit(pygame.transform.scale(KEYPIC,(200,100)),(412,70))
 
             if x>=buttonLeft and x<=buttonRight and y>=height/2+125 and y<=height/2+125+buttonHeight:
@@ -150,12 +159,17 @@ def search_key():
             else:
                 pygame.draw.rect(windowSurface, GREEN, startRect)
 
-
             if x>=buttonLeft and x<=buttonRight and y>=height/2+200 and y<=height/2+200+buttonHeight:
                 pygame.draw.rect(windowSurface, GOLD, howtoRect)
 
             else:
                 pygame.draw.rect(windowSurface, GREEN, howtoRect)
+
+            if x>=buttonLeft and x<=buttonRight and y>=height/2+275 and y<=height/2+275+buttonHeight:
+                pygame.draw.rect(windowSurface, GOLD, exitRect)
+
+            else:
+                pygame.draw.rect(windowSurface, GREEN, exitRect)
 
             if x>=360 and x<=420 and y>=390 and y<=450:
                 pygame.draw.rect(windowSurface, GOLD, decTurnsRect)
@@ -169,7 +183,6 @@ def search_key():
             else:
                 pygame.draw.rect(windowSurface, GREEN, incTurnsRect)
 
-
             pygame.draw.rect(windowSurface, WHITE, numTurnsRect)
 
             windowSurface.blit(textSurf1, textRect1)
@@ -178,8 +191,9 @@ def search_key():
             windowSurface.blit(textSurf4, textRect4)
             windowSurface.blit(textSurf5, textRect5)
             windowSurface.blit(textSurf6, textRect6)
+            windowSurface.blit(textSurf7, textRect7)
 
-
+        #how to screen
         elif howto == True:
             startmenu = pygame.font.SysFont("liberationserif",20)
             textSurf7, textRect7 = text_objects("BACK TO START MENU", startmenu)
@@ -222,6 +236,7 @@ def search_key():
 
         pygame.display.flip()
 
+    #start game
     while not done and start == True:
         right=50
         down=50
@@ -241,10 +256,9 @@ def search_key():
                 pos=event.pos
 
                 for rec in rects:
-                    #print(rec," ",pos)
                     if rec.collidepoint(pos):
                         distance=sqrt((rec.center[0]-rects[key_idx-1].center[0])**2 + (rec.center[1]-rects[key_idx-1].center[1])**2)
-                        # distance to hot/cold
+                        # distance to hot/cold measure
                         if distance<=100:
                             therm=pygame.image.load('Images/thermo+12Red.png')
                         if 100<distance<=142:
@@ -379,7 +393,7 @@ def search_key():
         pygame.display.flip()
 
 def show_end_screen():
-    BG=pygame.image.load('Images/jail background.jpg')
+    BG=pygame.image.load('Images/jail2.png')
     x= y =0 #to track mouse movement
     buttonWidth=240
     buttonHeight=50
