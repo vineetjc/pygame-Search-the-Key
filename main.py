@@ -49,6 +49,8 @@ incTurnsRect = pygame.Rect((604,390,60,60))
 numTurnsRect = pygame.Rect((442,390,142,60))
 #number of turns left
 numTurnsLeftRect = pygame.Rect((230,600,140,50))
+#exit
+exitRect=pygame.Rect((392,659,240,50))
 
 #Function for rendering text
 def text_objects(text, font):
