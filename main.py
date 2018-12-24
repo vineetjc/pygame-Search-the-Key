@@ -310,7 +310,7 @@ def search_key():
                     blackrect=pygame.draw.rect(windowSurface,BLACK,(clicked.left,clicked.top,clicked.width,clicked.height))
                     if clickedbox==key_idx:
                         text=basicFont.render('BING!',True,ORANGE,BLACK)
-                        pygame.mixer.music.load('./sounds/win.mp3')
+                        pygame.mixer.music.load('./sounds/Success-sound-effect.mp3')
                         pygame.mixer.music.play(0)
                         haswon=True
                     else:
