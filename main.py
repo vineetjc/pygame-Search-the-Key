@@ -238,6 +238,9 @@ def search_key():
                 windowSurface.blit(instSurfRect[i][0],instSurfRect[i][1])
 
         pygame.display.flip()
+    if event.type == pygame.QUIT:
+        pygame.quit()
+        exit()
 
     #start game
     while not done and start == True:
