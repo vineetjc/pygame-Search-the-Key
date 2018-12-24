@@ -25,15 +25,15 @@ Type `python main.py` to run the game.
 
 GAMEPLAY AND SCREENSHOT
 
-(https://github.com/harleyjoker1/pygame-Search-the-Key/screenshots/Capture.png)
+(https://github.com/vineetjc/pygame-Search-the-Key/blob/master/screenshots/Capture.png)
 
-(https://github.com/harleyjoker1/pygame-Search-the-Key/screenshots/Capture2.png)
+(https://github.com/vineetjc/pygame-Search-the-Key/blob/master/screenshots/Capture2.png)
 
-![Alt text](https://github.com/vineetjc/pygame-Search-the-Key/screenshots/1.png)
+![Alt text](https://github.com/vineetjc/pygame-Search-the-Key/blob/master/screenshots/1.png)
 
 ![Alt text](https://github.com/vineetjc/pygame-Search-the-Key/blob/master/screenshots/2.png)
 
-(https://github.com/harleyjoker1/pygame-Search-the-Key/screenshots/Capture5.png)
+(https://github.com/vineetjc/pygame-Search-the-Key/blob/master/screenshots/Capture5.png)
 
 DEVELOPING THE GAME
  
