@@ -14,6 +14,9 @@ width=size[0]
 height=size[1]
 windowSurface = pygame.display.set_mode((size), 0, 32)
 pygame.display.set_caption('Find the key!')
+pygame.mixer.music.load('./sounds/BackgroundMusic.mp3')
+pygame.mixer.music.set_volume(0.4)
+pygame.mixer.music.play(-1)
 
 # set up fonts
 basicFont = pygame.font.SysFont("symbola", 30)
@@ -312,6 +315,10 @@ def search_key():
                         text=basicFont.render('BING!',True,ORANGE,BLACK)
                         pygame.mixer.music.load('./sounds/win.mp3')
                         pygame.mixer.music.play(0)
+                        pygame.time.delay(3200)
+                        pygame.mixer.music.load('./sounds/BackgroundMusic.mp3')
+                        pygame.mixer.music.set_volume(0.4)
+                        pygame.mixer.music.play(-1)
                         haswon=True
                     else:
                         text=basicFont.render(str(clickedbox),True,ORANGE,BLACK)
@@ -334,6 +341,10 @@ def search_key():
                                 pygame.mixer.music.load('./sounds/lose.mp3')
                                 pygame.mixer.music.play(0)
                                 pygame.display.flip()
+                                pygame.time.delay(3200)
+                                pygame.mixer.music.load('./sounds/BackgroundMusic.mp3')
+                                pygame.mixer.music.set_volume(0.4)
+                                pygame.mixer.music.play(-1)
                                 pygame.time.delay(1500)
                                 show_end_screen()
 
