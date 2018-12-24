@@ -21,7 +21,7 @@ Go to the command prompt/terminal. Use
 This will create a clone of the project where you can make changes as you desire.
 
 ##### STEP 2: Running the Game
-Type `python2 main.py` to run the game.
+Type `python main.py` to run the game.
 
 ![Alt text](https://github.com/vineetjc/pygame-Search-the-Key/blob/master/screenshots/1.png)
 
