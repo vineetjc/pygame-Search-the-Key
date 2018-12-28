@@ -5,18 +5,22 @@
 
 Table of contents
 
-Introduction 
-Requirements 
-Working
-Installation guide 
-Screenshot 
-pygame-running 
-License
+1.Introduction 
+
+2.Requirements
+ 
+3.Working
+
+4.Installation guide 
+
+5.Screenshot 
+
+6.pygame-running 
+
+7.License
 
 
 INTRODUCTION
-
-
 
 
 A small game made using pygame. Search the key from a 5x5 grid in 6 turns with indications on how 'hot' or 'cold' they are with respect to the location of the key.
