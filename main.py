@@ -36,7 +36,8 @@ instructionSet = ["1. There exists a 5x5 grid, one of which holds the key",
                   "2. As you go closer to the key, the temperature increases",
                   "   and as you go away from the key, it decreases",
                   "3. You can vary the allowed number of turns between 4 and 8",
-                  "4. If you find the key in the selected number of turns, you win!"]
+                  "4. You can choose and grid length between 4 to 6",
+                  "5. If you find the key in the selected number of turns, you win!"]
 
 #Start Button
 startRect = pygame.Rect((392,509,240,50))
@@ -45,13 +46,19 @@ howtoRect = pygame.Rect((392,584,240,50))
 #Back Button
 backRect = pygame.Rect((392,584,240,50))
 #decrement number of turns
-decTurnsRect = pygame.Rect((360,390,60,60))
+decTurnsRect = pygame.Rect((360,410,60,60))
 #increment number of turns
-incTurnsRect = pygame.Rect((604,390,60,60))
+incTurnsRect = pygame.Rect((604,410,60,60))
 #number of turns
-numTurnsRect = pygame.Rect((442,390,142,60))
+numTurnsRect = pygame.Rect((442,410,142,60))
 #number of turns left
-numTurnsLeftRect = pygame.Rect((230,600,140,50))
+numTurnsLeftRect = pygame.Rect((730,50,140,50))
+#decrement grid size
+decGridSizeRect = pygame.Rect((360,330,60,60))
+#increment grid size
+incGridSizeRect = pygame.Rect((604,330,60,60))
+#grid size
+gridSizeRect = pygame.Rect((442,330,142,60))
 #exit
 exitRect=pygame.Rect((392,659,240,50))
 
@@ -71,16 +78,17 @@ def search_key():
     BG=pygame.image.load('Images/jail2.png')
     therm=pygame.image.load('Images/thermoLightBlu.png')
 
-    rects=[0 for i in range(25)] #list for boxes in the game
     blacklist=[] #stores numbers of the boxes clicked (already)
-    key_idx=random.randint(1,25) #randomize box with key
     turncount=0 #to check turn count
     maxturns = 6 #default number of turns allowed
+    maxsize = 6
     haswon=False #to check if successfully selected the key
     buttonWidth=240
     buttonHeight=50
     buttonLeft=width/2-(buttonWidth/2)
     buttonRight=width/2+(buttonWidth/2)
+    gridLength = 5 #default grid length
+    gridSize = gridLength ** 2
 
     done=False #loop variable
 
@@ -114,10 +122,7 @@ def search_key():
                     start = True
                     break
 
-                elif exitRect.collidepoint(event.pos):
-                    pygame.quit()
-                    sys.exit()
-
+                
                 elif incTurnsRect.collidepoint(event.pos):
                     if maxturns<8:
                         maxturns=maxturns+1
@@ -126,9 +131,21 @@ def search_key():
                     if maxturns>4:
                         maxturns=maxturns-1
 
+                elif incGridSizeRect.collidepoint(event.pos):
+                    if gridLength<6:
+                        gridLength=gridLength+1
+
+                elif decGridSizeRect.collidepoint(event.pos):
+                    if gridLength>4:
+                        gridLength=gridLength-1                
+
+                elif exitRect.collidepoint(event.pos):
+                    pygame.quit()
+                    sys.exit()
+
             title = pygame.font.SysFont("symbola",100)
             textSurf1, textRect1 = text_objects("Find The Key!", title)
-            textRect1.center = ( (width/2), (height/2) - 100)
+            textRect1.center = ( (width/2), (height/2) - 150)
 
             findkey = pygame.font.SysFont("liberationserif",20)
             textSurf2, textRect2 = text_objects("LET'S FIND THE KEY!", findkey)
@@ -140,19 +157,31 @@ def search_key():
 
             decTurnText = pygame.font.SysFont("liberationserif",40)
             textSurf4, textRect4 = text_objects("-", decTurnText)
-            textRect4.center = ( 390, 420)
+            textRect4.center = ( 390, 440)
 
             incTurnText = pygame.font.SysFont("liberationserif",40)
             textSurf5, textRect5 = text_objects("+", incTurnText)
-            textRect5.center = ( 634, 420)
+            textRect5.center = ( 634, 440)
 
             numTurnText = pygame.font.SysFont("liberationserif",30)
             textSurf6, textRect6 = text_objects(str(maxturns) + " turns", numTurnText)
-            textRect6.center = ( 512, 420)
+            textRect6.center = ( 512, 440)
 
-            howtotext = pygame.font.SysFont("liberationserif",20)
-            textSurf7, textRect7 = text_objects("EXIT", howtotext)
-            textRect7.center = ( (width/2), (height/2) + 300)
+            decGridText = pygame.font.SysFont("liberationserif",40)
+            textSurf7, textRect7 = text_objects("-", decGridText)
+            textRect7.center = ( 390, 360)
+
+            incGridText = pygame.font.SysFont("liberationserif",40)
+            textSurf8, textRect8 = text_objects("+", incGridText)
+            textRect8.center = ( 634, 360)
+
+            gridSizeText = pygame.font.SysFont("liberationserif",30)
+            textSurf9, textRect9 = text_objects(str(gridLength) + " x " + str(gridLength), gridSizeText)
+            textRect9.center = ( 512, 360)
+
+            exittext = pygame.font.SysFont("liberationserif",20)
+            textSurf10, textRect10 = text_objects("EXIT", exittext)
+            textRect10.center = ( (width/2), (height/2) + 300)
 
             windowSurface.blit(pygame.transform.scale(KEYPIC,(200,100)),(412,70))
 
@@ -174,19 +203,33 @@ def search_key():
             else:
                 pygame.draw.rect(windowSurface, GREEN, exitRect)
 
-            if x>=360 and x<=420 and y>=390 and y<=450:
+            if x>=360 and x<=420 and y>=410 and y<=470:
                 pygame.draw.rect(windowSurface, GOLD, decTurnsRect)
 
             else:
                 pygame.draw.rect(windowSurface, GREEN, decTurnsRect)
 
-            if x>=604 and x<=664 and y>=390 and y<=450:
+            if x>=604 and x<=664 and y>=410 and y<=470:
                 pygame.draw.rect(windowSurface, GOLD, incTurnsRect)
 
             else:
                 pygame.draw.rect(windowSurface, GREEN, incTurnsRect)
 
+            if x>=360 and x<=420 and y>=330 and y<=390:
+                pygame.draw.rect(windowSurface, GOLD, decGridSizeRect)
+
+            else:
+                pygame.draw.rect(windowSurface, GREEN, decGridSizeRect)
+
+            if x>=604 and x<=664 and y>=330 and y<=390:
+                pygame.draw.rect(windowSurface, GOLD, incGridSizeRect)
+
+            else:
+                pygame.draw.rect(windowSurface, GREEN, incGridSizeRect)
+
+
             pygame.draw.rect(windowSurface, WHITE, numTurnsRect)
+            pygame.draw.rect(windowSurface, WHITE, gridSizeRect)
 
             windowSurface.blit(textSurf1, textRect1)
             windowSurface.blit(textSurf2, textRect2)
@@ -195,6 +238,9 @@ def search_key():
             windowSurface.blit(textSurf5, textRect5)
             windowSurface.blit(textSurf6, textRect6)
             windowSurface.blit(textSurf7, textRect7)
+            windowSurface.blit(textSurf8, textRect8)
+            windowSurface.blit(textSurf9, textRect9)
+            windowSurface.blit(textSurf10, textRect10)
 
         #how to screen
         elif howto == True:
@@ -238,10 +284,14 @@ def search_key():
                 windowSurface.blit(instSurfRect[i][0],instSurfRect[i][1])
 
         pygame.display.flip()
+        
     if event.type == pygame.QUIT:
         pygame.quit()
         exit()
-        
+
+    gridSize = gridLength ** 2
+    rects=[0 for i in range(gridSize)] #list for boxes in the game
+    key_idx=random.randint(1,gridSize) #randomize box with key
 
     #start game
     while not done and start == True:
@@ -340,7 +390,7 @@ def search_key():
                                 done=True
                                 textSurf9, textRect9 = text_objects("GAME OVER", gameOverText)
                                 pygame.draw.rect(windowSurface, LIGHTRED, numTurnsLeftRect)
-                                textRect9.center = (300, 625)
+                                textRect9.center = (800, 75)
                                 windowSurface.blit(textSurf9, textRect9)
                                 pygame.mixer.music.load('./sounds/lose.mp3')
                                 pygame.mixer.music.play(0)
@@ -355,28 +405,28 @@ def search_key():
         windowSurface.blit(pygame.transform.scale(BG,(size)),(0,0))
 
         if turnsleft<=8 and turnsleft>5:
-            textSurf9, textRect9 = text_objects(str(turnsleft) + " turns left", numTurnsLeft)
-            textRect9.center = (300, 625)
+            textSurf11, textRect11 = text_objects(str(turnsleft) + " turns left", numTurnsLeft)
+            textRect11.center = (800, 75)
             pygame.draw.rect(windowSurface, LIMEGREEN, numTurnsLeftRect)
 
         elif turnsleft<=5 and turnsleft>3:
-            textSurf9, textRect9 = text_objects(str(turnsleft) + " turns left", numTurnsLeft)
-            textRect9.center = (300, 625)
+            textSurf11, textRect11 = text_objects(str(turnsleft) + " turns left", numTurnsLeft)
+            textRect11.center = (800, 75)
             pygame.draw.rect(windowSurface, LIGHTBLUE, numTurnsLeftRect)
 
         elif turnsleft<=3 and turnsleft>1:
-            textSurf9, textRect9 = text_objects(str(turnsleft) + " turns left", numTurnsLeft)
-            textRect9.center = (300, 625)
+            textSurf11, textRect11 = text_objects(str(turnsleft) + " turns left", numTurnsLeft)
+            textRect11.center = (800, 75)
             pygame.draw.rect(windowSurface, LIGHTYELLOW, numTurnsLeftRect)
           
         elif turnsleft==1:
-            textSurf9, textRect9 = text_objects(str(turnsleft) + " turn left", numTurnsLeft)
-            textRect9.center = (300, 625)
+            textSurf11, textRect11 = text_objects(str(turnsleft) + " turn left", numTurnsLeft)
+            textRect11.center = (800, 75)
             pygame.draw.rect(windowSurface, LIGHTYELLOW, numTurnsLeftRect)
 
-        windowSurface.blit(textSurf9, textRect9)
+        windowSurface.blit(textSurf11, textRect11)
         
-        for i in range(25):
+        for i in range(gridSize):
             if i+1 in blacklist:
                 if i+1==key_idx:
                     black_rec=pygame.draw.rect(windowSurface, BLACK, (right,down,horizontal,vertical),2)
@@ -389,7 +439,7 @@ def search_key():
                 black_rec=pygame.draw.rect(windowSurface, BLACK, (right,down,horizontal,vertical),2)
             rects[i]=black_rec
             right+=100
-            if right==(50+100*(6-1)):
+            if right==(50+100*(gridLength)):
                 down+=100
                 right=50
         windowSurface.blit(therm,therm.get_rect(center=(8*size[0]/10,size[1]/2)))
@@ -397,10 +447,10 @@ def search_key():
             pygame.time.delay(500)
             #'you win!'
             done=True
-            textSurf9, textRect9 = text_objects("YOU WIN", numTurnsLeft)
+            textSurf11, textRect11 = text_objects("YOU WIN", numTurnsLeft)
             pygame.draw.rect(windowSurface, LIMEGREEN, numTurnsLeftRect)
-            textRect9.center = (300, 625)
-            windowSurface.blit(textSurf9, textRect9)
+            textRect11.center = (800, 75)
+            windowSurface.blit(textSurf11, textRect11)
             pygame.display.flip()
             pygame.time.delay(1000)
             show_end_screen()
@@ -456,7 +506,7 @@ def show_end_screen():
         pygame.display.flip()
 
         if restart == False:
-             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if restartRect.collidepoint(event.pos):
                     restart = True
 
@@ -464,9 +514,12 @@ def show_end_screen():
                     pygame.quit()
                     sys.exit()
 
+            elif event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
         if restart == True:
             search_key()
-
 
 
 if __name__=='__main__':
