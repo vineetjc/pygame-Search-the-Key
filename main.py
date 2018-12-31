@@ -36,7 +36,7 @@ instructionSet = ["1. There exists a 5x5 grid, one of which holds the key",
                   "2. As you go closer to the key, the temperature increases",
                   "   and as you go away from the key, it decreases",
                   "3. You can vary the allowed number of turns between 4 and 8",
-                  "4. You can choose and grid length between 4 to 6",
+                  "4. You can choose any grid length between 4 to 6",
                   "5. If you find the key in the selected number of turns, you win!"]
 
 #Start Button
