@@ -89,6 +89,8 @@ def search_key():
     buttonRight=width/2+(buttonWidth/2)
     gridLength = 5 #default grid length
     gridSize = gridLength ** 2
+    upperLimitTurnCount=7
+    lowerLimitTurnCount=5
 
     done=False #loop variable
 
@@ -124,21 +126,33 @@ def search_key():
 
                 
                 elif incTurnsRect.collidepoint(event.pos):
-                    if maxturns<8:
+                    if maxturns<upperLimitTurnCount:
                         maxturns=maxturns+1
 
                 elif decTurnsRect.collidepoint(event.pos):
-                    if maxturns>4:
+                    if maxturns>lowerLimitTurnCount:
                         maxturns=maxturns-1
 
                 elif incGridSizeRect.collidepoint(event.pos):
                     if gridLength<6:
                         gridLength=gridLength+1
+                        
+                        upperLimitTurnCount, lowerLimitTurnCount = getLimits(gridLength)
+
+                        print(upperLimitTurnCount)
+
+                        if maxturns > upperLimitTurnCount or maxturns < lowerLimitTurnCount:
+                            maxturns = upperLimitTurnCount
 
                 elif decGridSizeRect.collidepoint(event.pos):
                     if gridLength>4:
-                        gridLength=gridLength-1                
+                        gridLength=gridLength-1
+                        
+                        upperLimitTurnCount, lowerLimitTurnCount = getLimits(gridLength)
 
+                        if maxturns > upperLimitTurnCount or maxturns < lowerLimitTurnCount:
+                            maxturns = upperLimitTurnCount
+                
                 elif exitRect.collidepoint(event.pos):
                     pygame.quit()
                     sys.exit()
@@ -521,6 +535,17 @@ def show_end_screen():
         if restart == True:
             search_key()
 
+
+def getLimits(gridLength):
+
+    if gridLength == 4:
+        return 5,4
+
+    elif gridLength == 5:
+        return 7,5
+
+    else:
+        return 8,7
 
 if __name__=='__main__':
     search_key()
