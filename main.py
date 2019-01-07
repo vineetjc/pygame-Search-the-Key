@@ -81,14 +81,13 @@ def search_key():
     blacklist=[] #stores numbers of the boxes clicked (already)
     turncount=0 #to check turn count
     maxturns = 6 #default number of turns allowed
-    maxsize = 6
     haswon=False #to check if successfully selected the key
     buttonWidth=240
     buttonHeight=50
     buttonLeft=width/2-(buttonWidth/2)
     buttonRight=width/2+(buttonWidth/2)
     gridLength = 5 #default grid length
-    gridSize = gridLength ** 2
+    gridSize = gridLength ** 2 #number of squares
     upperLimitTurnCount=7
     lowerLimitTurnCount=5
 
@@ -124,7 +123,7 @@ def search_key():
                     start = True
                     break
 
-                
+
                 elif incTurnsRect.collidepoint(event.pos):
                     if maxturns<upperLimitTurnCount:
                         maxturns=maxturns+1
@@ -136,10 +135,8 @@ def search_key():
                 elif incGridSizeRect.collidepoint(event.pos):
                     if gridLength<6:
                         gridLength=gridLength+1
-                        
-                        upperLimitTurnCount, lowerLimitTurnCount = getLimits(gridLength)
 
-                        print(upperLimitTurnCount)
+                        upperLimitTurnCount, lowerLimitTurnCount = getLimits(gridLength)
 
                         if maxturns > upperLimitTurnCount or maxturns < lowerLimitTurnCount:
                             maxturns = upperLimitTurnCount
@@ -147,12 +144,12 @@ def search_key():
                 elif decGridSizeRect.collidepoint(event.pos):
                     if gridLength>4:
                         gridLength=gridLength-1
-                        
+
                         upperLimitTurnCount, lowerLimitTurnCount = getLimits(gridLength)
 
                         if maxturns > upperLimitTurnCount or maxturns < lowerLimitTurnCount:
                             maxturns = upperLimitTurnCount
-                
+
                 elif exitRect.collidepoint(event.pos):
                     pygame.quit()
                     sys.exit()
@@ -298,7 +295,7 @@ def search_key():
                 windowSurface.blit(instSurfRect[i][0],instSurfRect[i][1])
 
         pygame.display.flip()
-        
+
     if event.type == pygame.QUIT:
         pygame.quit()
         exit()
@@ -432,14 +429,14 @@ def search_key():
             textSurf11, textRect11 = text_objects(str(turnsleft) + " turns left", numTurnsLeft)
             textRect11.center = (800, 75)
             pygame.draw.rect(windowSurface, LIGHTYELLOW, numTurnsLeftRect)
-          
+
         elif turnsleft==1:
             textSurf11, textRect11 = text_objects(str(turnsleft) + " turn left", numTurnsLeft)
             textRect11.center = (800, 75)
             pygame.draw.rect(windowSurface, LIGHTYELLOW, numTurnsLeftRect)
 
         windowSurface.blit(textSurf11, textRect11)
-        
+
         for i in range(gridSize):
             if i+1 in blacklist:
                 if i+1==key_idx:
