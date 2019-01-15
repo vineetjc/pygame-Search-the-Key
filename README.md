@@ -23,7 +23,64 @@ This will create a clone of the project where you can make changes as you desire
 ##### STEP 2: Running the Game
 Type `python main.py` to run the game.
 
+GAMEPLAY AND SCREENSHOT
+
+(https://github.com/vineetjc/pygame-Search-the-Key/blob/master/screenshots/Capture.png)
+
+(https://github.com/vineetjc/pygame-Search-the-Key/blob/master/screenshots/Capture2.png)
+
 ![Alt text](https://github.com/vineetjc/pygame-Search-the-Key/blob/master/screenshots/1.png)
 
-
 ![Alt text](https://github.com/vineetjc/pygame-Search-the-Key/blob/master/screenshots/2.png)
+
+(https://github.com/vineetjc/pygame-Search-the-Key/blob/master/screenshots/Capture5.png)
+
+DEVELOPING THE GAME
+ 
+ On Windows
+
+1.Clone the repository by the method appropriate for the Git interface you are using.
+2.Install Python 2.x
+3.Start the game using
+
+      python -m game
+
+4. pip install any missing libraries
+5. Always pull changes from the main repo before adding your changes
+
+       git pull upstream master
+
+6. Create a new branch to work on feature
+
+       git branch <feature_branch>
+
+7. Make it the working branch
+
+       git checkout <feature_branch>
+
+8. Commit your changes
+9. Merge your feature branch to the master branch when all the changes are done
+
+        git checkout master
+        git merge <feature_branch>
+
+10. Push your changes to your fork by
+
+        git push origin master
+
+11. Create a new Pull Request on the main repo
+12. Make any required changes
+13. When the PR is merged, repeat #6 - #14
+
+GAMEPLAY HELP 
+
+You can select the "HOW TO PLAY" option for the instruction of the game or you can refer below:
+
+1. There exists a 5x5 grid, one of which holds the key
+2. As you go closer to the key, the temperature increases
+   and as you go away from the key, it decreases
+3. You can vary the allowed number of turns between 4 and 8
+4. If you find the key in the selected number of turns, you win! 
+
+
+ENJOY THE GAME  
